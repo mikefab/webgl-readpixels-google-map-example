@@ -1,3 +1,5 @@
+This is an example of Webgl picking data points on a google map using readPixels. 
+
 # Haml Coffee Sinatra
 
 This is an example [Sinatra](https://github.com/sinatra/sinatra) application based on the
