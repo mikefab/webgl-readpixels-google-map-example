@@ -1,5 +1,10 @@
 This is an example of Webgl picking data points on a google map using readPixels. Pedro Sousa's  Displaying WebGL data on Google Maps  was very helpful. Mouseover a point to see the city name.
 
+Live demo: http://codepen.io/mikefab/full/yhEfu/
+
+
+Server: 
+
 # Haml Coffee Sinatra
 
 This is an example [Sinatra](https://github.com/sinatra/sinatra) application based on the
