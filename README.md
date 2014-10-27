@@ -2,7 +2,6 @@ This is an example of Webgl picking data points on a google map using readPixels
 
 Live demo: http://codepen.io/mikefab/full/yhEfu/
 
-
 Server: 
 
 # Haml Coffee Sinatra

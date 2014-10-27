@@ -1,12 +1,12 @@
 #= require hamlcoffee
 #= require_tree ./templates
 #= require_self
-angular.module('myApp',  ["myApp.controllers", "myApp.directives", "myApp.services"])
+angular.module('myApp',  ['myApp.controllers', 'myApp.directives', 'myApp.services'])
 
 
         
-angular.module("myApp.controllers", [])
-  .controller "myCtrl", ($scope) ->
+angular.module('myApp.controllers', [])
+  .controller 'myCtrl', ($scope) ->
     canvasLayer                = undefined
     $scope.gl                  = undefined
     $scope.pointProgram        = undefined
@@ -19,7 +19,7 @@ angular.module("myApp.controllers", [])
     $scope.colorLookup   = {}
 
     
-    $scope.cities = [{"id":"Algiers", "latitude": 36.70000, "longitude": 3.21700} ,{"id": "Khartoum", "latitude": 15.56670, "longitude": 32.60000 },{"id": "New York", "latitude": 40.75170, "longitude": -73.99420},{"id": "London", "latitude": 51.50722, "longitude": -0.12750}, {"id": "Bogota", "latitude": 4.63330, "longitude": -74.09990}, {"id": "Paris", "latitude": 48.85000, "longitude": 2.33330}]
+    $scope.cities = [{'id':'Algiers', 'latitude': 36.70000, 'longitude': 3.21700} ,{'id': 'Khartoum', 'latitude': 15.56670, 'longitude': 32.60000 },{'id': 'New York', 'latitude': 40.75170, 'longitude': -73.99420},{'id': 'London', 'latitude': 51.50722, 'longitude': -0.12750}, {'id': 'Bogota', 'latitude': 4.63330, 'longitude': -74.09990}, {'id': 'Paris', 'latitude': 48.85000, 'longitude': 2.33330}]
     $scope.init = ->
 
       # initialize the map
@@ -27,7 +27,7 @@ angular.module("myApp.controllers", [])
         zoom: 3
         center: new google.maps.LatLng(24.026397, 14.765625)
         mapTypeId: google.maps.MapTypeId.ROADMAP
-      $scope.map = new google.maps.Map(document.getElementById("map"), mapOptions)
+      $scope.map = new google.maps.Map(document.getElementById('map'), mapOptions)
 
       
     $scope.initialize_canvasLayer = ->
@@ -39,10 +39,10 @@ angular.module("myApp.controllers", [])
 
       canvasLayer = new CanvasLayer(canvasLayerOptions)
       # initialize WebGL
-      $scope.gl = canvasLayer.canvas.getContext("experimental-webgl",
+      $scope.gl = canvasLayer.canvas.getContext('experimental-webgl',
         preserveDrawingBuffer: true
       )
-      canvas = document.getElementById("map")
+      canvas = document.getElementById('map')
       height = 1024
       width  = 1024
       
@@ -52,7 +52,7 @@ angular.module("myApp.controllers", [])
         top  = 0
         left = 0
         obj  = canvas
-        while obj and obj.tagName isnt "BODY"
+        while obj and obj.tagName isnt 'BODY'
           top  += obj.offsetTop
           left += obj.offsetLeft
           obj   = obj.offsetParent
@@ -65,13 +65,13 @@ angular.module("myApp.controllers", [])
         $scope.gl.readPixels x, y, 1, 1, $scope.gl.RGBA, $scope.gl.UNSIGNED_BYTE, pixels
 
         d = document.getElementById('infoWindow')
-        if $scope.colorLookup[pixels[0] + " " + pixels[1] + " " + pixels[2]]
-          d.style.display = "inline"
+        if $scope.colorLookup[pixels[0] + ' ' + pixels[1] + ' ' + pixels[2]]
+          d.style.display = 'inline'
           d.style.left    = ev.x + 10 + 'px'
           d.style.top     = ev.y - 15 + 'px'
-          d.innerHTML     = $scope.colorLookup[pixels[0] + " " + pixels[1] + " " + pixels[2]]
+          d.innerHTML     = $scope.colorLookup[pixels[0] + ' ' + pixels[1] + ' ' + pixels[2]]
         else
-          d.style.display = "none"        
+          d.style.display = 'none'        
       
       $scope.animate()
       
@@ -117,24 +117,24 @@ angular.module("myApp.controllers", [])
       translateMatrix mapMatrix, -offset.x, -offset.y
 
       # attach matrix value to 'mapMatrix' uniform in shader
-      matrixLoc = $scope.gl.getUniformLocation($scope.pointProgram, "mapMatrix")
+      matrixLoc = $scope.gl.getUniformLocation($scope.pointProgram, 'mapMatrix')
       $scope.gl.uniformMatrix4fv matrixLoc, false, mapMatrix
 
       # On SCREEN
       # Bind Shader attributes
       $scope.gl.bindFramebuffer($scope.gl.FRAMEBUFFER, $scope.framebuffer);
       $scope.gl.bindBuffer($scope.gl.ARRAY_BUFFER, $scope.pointArrayBuffer)           # Bind world coord
-      attributeLoc = $scope.gl.getAttribLocation($scope.pointProgram, "worldCoord")
+      attributeLoc = $scope.gl.getAttribLocation($scope.pointProgram, 'worldCoord')
       $scope.gl.enableVertexAttribArray attributeLoc
       $scope.gl.vertexAttribPointer attributeLoc, 2, $scope.gl.FLOAT, false, 0, 0
       
       $scope.gl.bindBuffer($scope.gl.ARRAY_BUFFER, $scope.sizeArrayBuffer)            # Bind point size
-      attributeSize = $scope.gl.getAttribLocation($scope.pointProgram, "aPointSize")
+      attributeSize = $scope.gl.getAttribLocation($scope.pointProgram, 'aPointSize')
       $scope.gl.enableVertexAttribArray attributeSize
       $scope.gl.vertexAttribPointer attributeSize, 1, $scope.gl.FLOAT, false, 0, 0
       
       $scope.gl.bindBuffer($scope.gl.ARRAY_BUFFER, $scope.colorArrayBufferOffScreen)   # Bind point color
-      attributeCol = $scope.gl.getAttribLocation($scope.pointProgram, "color")
+      attributeCol = $scope.gl.getAttribLocation($scope.pointProgram, 'color')
       $scope.gl.enableVertexAttribArray attributeCol     
       $scope.gl.vertexAttribPointer attributeCol, 4, $scope.gl.FLOAT, false, 0, 0
       
@@ -148,13 +148,13 @@ angular.module("myApp.controllers", [])
     
     $scope.createShaderProgram = ->
       # create vertex shader
-      vertexSrc    = document.getElementById("pointVertexShader").text
+      vertexSrc    = document.getElementById('pointVertexShader').text
       vertexShader = $scope.gl.createShader($scope.gl.VERTEX_SHADER)
       $scope.gl.shaderSource vertexShader, vertexSrc
       $scope.gl.compileShader vertexShader
 
       # create fragment shader
-      fragmentSrc    = document.getElementById("pointFragmentShader").text
+      fragmentSrc    = document.getElementById('pointFragmentShader').text
       fragmentShader = $scope.gl.createShader($scope.gl.FRAGMENT_SHADER)
       $scope.gl.shaderSource fragmentShader, fragmentSrc
       $scope.gl.compileShader fragmentShader
@@ -207,7 +207,7 @@ angular.module("myApp.controllers", [])
         snd = Math.random()
         trd = Math.random()
         # Generate a random color 
-        $scope.colorLookup[Math.abs(Math.round(fst*255)) + " " +  Math.abs(Math.round(snd*255))+ " " +  Math.abs(Math.round(trd*255))] = id
+        $scope.colorLookup[Math.abs(Math.round(fst*255)) + ' ' +  Math.abs(Math.round(snd*255))+ ' ' +  Math.abs(Math.round(trd*255))] = id
         
         # On screen point colors
         point_color[i * 4]     =  fst
@@ -221,7 +221,7 @@ angular.module("myApp.controllers", [])
     
 
 angular.module('myApp.services', [])
-  .factory "mapService", ($rootScope) ->
+  .factory 'mapService', ($rootScope) ->
       mapService = {}
       mapService.map = undefined
       mapService.set_map = (map) ->
@@ -236,16 +236,16 @@ angular.module('myApp.directives', [])
       elm.text(version)
   ])
   
-  .directive "map", (mapService) ->    
+  .directive 'map', (mapService) ->    
     replace: true
-    template: "<div></div>"
+    template: '<div></div>'
     link: (scope, element, attrs) ->
       console.log element
       mapOptions =
         zoom: 3
         center: new google.maps.LatLng(24.026397, 14.765625)
         mapTypeId: google.maps.MapTypeId.ROADMAP
-      mapService.set_map new google.maps.Map(document.getElementById("map"), mapOptions)
+      mapService.set_map new google.maps.Map(document.getElementById('map'), mapOptions)
       
   
 scaleMatrix = (matrix, scaleX, scaleY) ->
