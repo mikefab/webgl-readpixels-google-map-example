@@ -120,7 +120,6 @@ angular.module('myApp.controllers', [])
       matrixLoc = $scope.gl.getUniformLocation($scope.pointProgram, 'mapMatrix')
       $scope.gl.uniformMatrix4fv matrixLoc, false, mapMatrix
 
-      # On SCREEN
       # Bind Shader attributes
       $scope.gl.bindFramebuffer($scope.gl.FRAMEBUFFER, $scope.framebuffer);
       $scope.gl.bindBuffer($scope.gl.ARRAY_BUFFER, $scope.pointArrayBuffer)           # Bind world coord
@@ -133,7 +132,7 @@ angular.module('myApp.controllers', [])
       $scope.gl.enableVertexAttribArray attributeSize
       $scope.gl.vertexAttribPointer attributeSize, 1, $scope.gl.FLOAT, false, 0, 0
       
-      $scope.gl.bindBuffer($scope.gl.ARRAY_BUFFER, $scope.colorArrayBufferOffScreen)   # Bind point color
+      $scope.gl.bindBuffer($scope.gl.ARRAY_BUFFER, $scope.colorArrayBuffer)   # Bind point color
       attributeCol = $scope.gl.getAttribLocation($scope.pointProgram, 'color')
       $scope.gl.enableVertexAttribArray attributeCol     
       $scope.gl.vertexAttribPointer attributeCol, 4, $scope.gl.FLOAT, false, 0, 0
@@ -182,8 +181,8 @@ angular.module('myApp.controllers', [])
       $scope.gl.bindBuffer $scope.gl.ARRAY_BUFFER, $scope.sizeArrayBuffer
       $scope.gl.bufferData $scope.gl.ARRAY_BUFFER, city_dots.point_size, $scope.gl.STATIC_DRAW
 
-      $scope.colorArrayBufferOffScreen = $scope.gl.createBuffer()                                 # pColorArrayBuffer
-      $scope.gl.bindBuffer $scope.gl.ARRAY_BUFFER, $scope.colorArrayBufferOffScreen
+      $scope.colorArrayBuffer = $scope.gl.createBuffer()                                 # pColorArrayBuffer
+      $scope.gl.bindBuffer $scope.gl.ARRAY_BUFFER, $scope.colorArrayBuffer
       $scope.gl.bufferData $scope.gl.ARRAY_BUFFER, city_dots.point_color, $scope.gl.STATIC_DRAW
 
     
